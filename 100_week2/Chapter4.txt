@@ -1,0 +1,20 @@
+Section 4.4
+===========
+
+1.
+There is a typo in the 7th character: i vs 1
+
+2.
+install.pacakges("tidyverse")
+library(tidyverse)
+
+ggplot2::mpg
+ggplot(data = mpg) +
+ geom_point(mapping = aes(x = displ, y = hwy))
+
+filter(mpg, cyl == 8)
+filter(diamonds, carat > 3)
+
+3.
+The keyboard shortcut quick reference appears.
+This can also be found on the last tool menu at the top HELP > KEYBOARD SHORTCUTS HELP (4th from bottom)
