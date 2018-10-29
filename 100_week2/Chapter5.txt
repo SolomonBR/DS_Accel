@@ -33,25 +33,25 @@ Another useful dplyr filtering helper is between(). What does it do? Can you use
 > filter(flights, between(dep_time, 0000, 0600))
 
 How many flights have a missing dep_time?
-8255
+# 8255
 
 What other variables are missing?
-dep_delay, arr_time, arr_delay, tailnum
+# dep_delay, arr_time, arr_delay, tailnum
 
 What might these rows represent?
-Canceled flights?
+# Canceled flights?
 
 Why is NA ^ 0 not missing?
-So, the reason that any number to the zero power is one is because any number to the zero power is just the product of no numbers at all, which is the multiplicative identity, 1. REF: http://scienceline.ucsb.edu/getkey.php?key=2626
+# So, the reason that any number to the zero power is one is because any number to the zero power is just the product of no numbers at all, which is the multiplicative identity, 1. REF: http://scienceline.ucsb.edu/getkey.php?key=2626
 
 Why is NA | TRUE not missing?
-Because "or" continues evaluation until it finds a true expression
+# Because "or" continues evaluation until it finds a true expression
 
 Why is FALSE & NA not missing?
-Because NA is falsey?
+# Because NA is falsey?
 
 Can you figure out the general rule? (NA * 0 is a tricky counterexample!)
-Arithmetic of NA is NA, evaluation of NA is ignored?
+# Arithmetic of NA is NA, evaluation of NA is ignored?
 
 
 Section 5.3
@@ -81,3 +81,32 @@ Which travelled the shortest?
 
 Section 5.4
 ===========
+
+5.4.1 Exercises
+Brainstorm as many ways as possible to select dep_time, dep_delay, arr_time, and arr_delay from flights.
+> select(flights, dep_time, dep_delay, arr_time, arr_delay)
+> select(flights, dep_time,dep_delay:arr_time, arr_delay)
+> select(flights, dep_time:arr_delay, -starts_with("sched"))
+> select(flights, starts_with("dep"), starts_with("arr"))
+> select(flights, one_of("dep_time", "dep_delay", "arr_time", "arr_delay"))
+
+What happens if you include the name of a variable multiple times in a select() call?
+# It only returns that variable back once, distinctly.
+
+What does the one_of() function do?
+# Selects variables in a list of variables.
+
+Why might it be helpful in conjunction with this vector?
+vars <- c("year", "month", "day", "dep_delay", "arr_delay")
+# Because it cleanly selects among its components as variables being passed to a select:
+> select(flights, one_of(vars))
+
+Does the result of running the following code surprise you?
+# Yes!
+
+How do the select helpers deal with case by default?
+# Case is ignored.
+
+How can you change that default?
+> select(flights, contains("TIME", ignore.case = FALSE))
+# A tibble: 336,776 x 0
